@@ -3,6 +3,7 @@ components/rocount/rocount
 components/majoritypoll/majoritypoll
 tunemyapuf/tunemyapuf
 iprepo/*
+*.swp
 
 # Python ignore stuffs
 __pycache__/
