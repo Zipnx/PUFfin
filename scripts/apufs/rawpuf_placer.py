@@ -4,6 +4,10 @@ import argparse
 
 Location = Tuple[int, int]
 
+PREFIXES = {
+    'ps_rawapuf': 'toplevel_i/APUF_Raw_AXI_v1_0_0/U0/APUF_Raw_AXI_v1_1_S00_AXI_inst/RAW_APUF_INST/U0/APUF_INST/'
+}
+
 # used when not specified by args
 TOPLEFT: Location = (120, 60)
 DIMENSIONS = (32, 32)
@@ -126,11 +130,21 @@ def main():
     parser.add_argument('-w', type=int, help = 'Response bit width', default = DIMENSIONS[0])
     parser.add_argument('-d', type=int, help = 'Challenge bit width', default = DIMENSIONS[1])
     parser.add_argument('-s', type=int, help = 'Stack width (DEFAULT=11 to fit on a zybo clock region)', default = 11)
+    parser.add_argument('-p', type=str, default = 'ps_rawapuf',
+                        help = 'Specify the prefix that will be used (default = ps_rawapuf)')
     parser.add_argument('-o', type=str, help = 'Filepath to save the placement')
     parser.add_argument('--ila', type=int, help = 'Used to add ILA to the xdc (Parameter is the sample freq in MHz)')
 
     args = parser.parse_args()
     
+    # this is hacky but it does what i want it to do
+    if args.p not in PREFIXES.keys():
+        print(f'[!] Prefix "{args.p}" not found!')
+        return
+
+    global PREFIX
+    PREFIX = PREFIXES[args.p]
+
     print(f'[*] Placing at topleft: X={args.x} Y={args.y}')
     print(f'[*] Generating for CHALL={args.d} and WIDTH={args.w}\n')
     print('='*30)
@@ -141,6 +155,8 @@ def main():
     if args.ila:
         placement += ila_debug(args)
     
+
+
     if not args.o:
         print(placement)
     

@@ -1,9 +1,18 @@
+# excluding the vivado project directories, gotta build em via tcl
 components/rawapuf/rawapuf
+components/axi_rawapuf/axi_rawapuf
 components/rocount/rocount
 components/majoritypoll/majoritypoll
+standalone/ps_rawapuf/ps_rawapuf
 tunemyapuf/tunemyapuf
-iprepo/*
 *.swp
+
+# Not gonna upload the collected results from the scripts, at least not needlessly
+scripts/apufs/collection/*.json
+
+# NOTTODOANYMORE: Might actually be fine to ship the ip repo files...
+#       Need to look further into this.
+#iprepo/*
 
 # Python ignore stuffs
 __pycache__/
