@@ -3,3 +3,21 @@ components/rocount/rocount
 components/majoritypoll/majoritypoll
 tunemyapuf/tunemyapuf
 iprepo/*
+
+# Python ignore stuffs
+__pycache__/
+.overreacher/
+
+/build
+/dist
+/venv
+/.git
+/.mypy_cache
+
+setup.ini
+*.egg
+*.eggs
+*.egg-info/
+*.pyc
+
+/*.json

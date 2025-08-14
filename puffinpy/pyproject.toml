@@ -1,0 +1,23 @@
+[project]
+name = 'puffinpy'
+version = '0.3.0'
+description = 'Python module for interacting with the PUFfin hardware provider'
+authors = [{ name = 'Zipnx', email = 'zipnx@protonmail.com' }]
+license = { text = 'MIT' }
+readme = 'README.md'
+requires-python = ">=3.8"
+dependencies = [
+    'pyserial'
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
