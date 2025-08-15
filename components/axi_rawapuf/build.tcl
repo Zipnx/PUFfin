@@ -52,7 +52,7 @@ if { [info exists ::user_project_name] } {
 }
 
 variable script_file
-set script_file "build2.tcl"
+set script_file "build.tcl"
 
 # Help information for this script
 proc print_help {} {
