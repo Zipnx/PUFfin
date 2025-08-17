@@ -6,6 +6,7 @@ components/axi_rawapuf/axi_rawapuf
 components/axi_rawapuf_multi/axi_rawapuf_multi
 components/rocount/rocount
 
+standalone/ps_auth/ps_auth
 standalone/ps_rawapuf/ps_rawapuf
 standalone/ps_apuftune/ps_apuftune
 
