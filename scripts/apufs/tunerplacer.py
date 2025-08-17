@@ -16,7 +16,12 @@ def error(s): print(f'{RED}[!]{WHITE} {s}')
 Location = Tuple[int, int]
 
 OUTPUT = './tuner.xdc'
-PREFIX = 'design_1_i/LUT_APUF_Raw_AXI_0/U0/LUT_APUF_Raw_AXI_v1_1_S00_AXI_inst/RAW_APUF_INST/U0/APUF_INST/'
+
+PREFIXES = {
+    "ps_apuftune": 'toplevel_i/APUF_Raw_Multi_AXI_v_0/U0/APUF_Raw_Multi_AXI_v1_0_S00_AXI_inst/RAWAPUF_INST/U0/APUF_INST/'
+}
+#PREFIX = 'design_1_i/LUT_APUF_Raw_AXI_0/U0/LUT_APUF_Raw_AXI_v1_1_S00_AXI_inst/RAW_APUF_INST/U0/APUF_INST/'
+PREFIX = PREFIXES['ps_apuftune']
 # This goes by puf instance as a whole
 
 PUF_WIDTH  = 2
