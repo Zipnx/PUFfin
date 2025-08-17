@@ -14,6 +14,15 @@ dependencies = [
 dev = [
     "pytest"
 ]
+gui = [
+    "dearpygui"
+]
+cli = [
+]
+
+[project.scripts]
+puffincli = "puffinpy._cli._main:main"
+puffingui = "puffinpy._gui._main:main"
 
 [build-system]
 requires = ["setuptools>=61", "wheel"]
