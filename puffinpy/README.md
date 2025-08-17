@@ -1,5 +1,5 @@
 
-# Hardware Crypto Module Core
+# Puffin Crypto Module Core
 
 This module's purpose is to interact with the PUFort hardware over serial.
 It will be used in the GUI application, as well as other benchmarking scripts,
@@ -10,26 +10,23 @@ therefore it was better for it to be a independent module
 To use this protocol in the other project, run:
 
 ```
-pip install -e .
+This is for a complete install
+pip install -e .[dev,cli,gui]
 ```
 
 This assumes a virtualenv is already made and used. Afterwards the module can be used
 as such:
 
 ```python
-from hcmcore import HCMCommander, Command, Opcode
+# [TODO WITH NEW FORMAT] 
+```
 
-hcm = HCMCommander(port = 'COM4')
-cmd = Command(Opcode.READ_TEMP)
-
-# This allows for easy error checking
-result, error = hcm.push_command(cmd)
-
-# If you don't care about the error do:
-result, _ = hcm.push_command(cmd)
-
-# Eventually the above will be obsolete since there'll be functions
-# that are specific to the functionality they expose
+When installed, you can also run the cli or gui app by running
+```
+# For the cli:
+puffincli <SERIALPORT>
+# For the gui:
+puffingui
 ```
 
 Note that the result varies depending on the opcode, and the data (if needed) that are passed

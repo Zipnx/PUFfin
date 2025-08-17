@@ -128,6 +128,23 @@ class HCMCommander:
 
         return temp
     
+    def apuf_single(self, challenge: int) -> int:
+        if self.is_sim:
+            return struct.unpack('>I', sim_apuf_single(challenge))[0]
+
+        try:
+            chall = struct.pack('>I', challenge)
+        except BaseException:
+            raise ValueError(f'Value {challenge} is not a valid uint32 challenge')
+
+        cmd = Command(Opcode.APUF_SINGLE, data = chall)
+        result = self.push_command(cmd)
+
+        if result.error is not None or result.data is None or result.size != 4: return -1
+
+        return struct.unpack('>I', result.data[0:4])[0]
+
+
     def rawapuf_single(self, challenge: int) -> int:
 
         if self.is_sim:
