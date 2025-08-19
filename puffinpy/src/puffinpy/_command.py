@@ -5,14 +5,15 @@ from enum import IntEnum
 import threading, struct
 
 class Opcode(IntEnum):
-    HALT            = 0
-    APUF_SINGLE     = 1
-    PUFKY_READ      = 2
+    INFO            = 0
+    QUERY           = 1
+    APUF_SINGLE     = 2
     READ_TEMP       = 3
-    APUF_BATCH      = 4
-    AES_ENCRYPT     = 5
-    AES_DECRYPT     = 6
-    
+    READ_PUFKY      = 4
+    APUF_BATCH      = 5
+    AES_ENCRYPT     = 6
+    AES_DECRYPT     = 7
+
     # Debug operations
     RAWAPUF_BATCH   = 254
     RAWAPUF_SINGLE  = 255

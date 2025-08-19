@@ -46,9 +46,16 @@ class Sector:
 
         return slots
 
+#SECTS = [
+#    Sector((22, 99), 11, 2),
+#    Sector((22, 49), 11, 2)
+#]
+
 SECTS = [
-    Sector((22, 99), 11, 2),
-    Sector((22, 49), 11, 2)
+    Sector((0, 99), 11, 1),
+    Sector((22, 99), 11, 1),
+    Sector((0, 16), 11, 1),
+    Sector((22, 16), 11, 1)
 ]
 
 

@@ -54,7 +54,27 @@ the libhcm firmware.
             print('[!] Error:', str(e))
             return
 
-        print(f'Response: 0x{response:08x}')
+        print(f'Response: 0x{hex(response)}')
+
+    def do_rawapuf(self, arg):
+        try:
+            chall = int(arg)
+        except ValueError:
+            print('[!] Invalid int')
+            return
+
+        if chall.bit_length() > 32:
+            print('[!] Challenge must be a uint32')
+            return 
+
+        try:
+            response = self.hcm.rawapuf_single(chall)
+        except ValueError as e:
+            print('[!] Error:', str(e))
+            return
+
+        print(f'Response: 0x{hex(response)}')
+
 
     def do_test(self, arg):
         print('Just checkin:', arg)
