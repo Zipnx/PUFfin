@@ -35,7 +35,7 @@ entity apuf_wrapper is
     generic (
         BIT_WIDTH:     integer := 32;
         CHALL_BITS:    integer := 32;
-        INTCONFIG:     string := "1111111111111111111111111111111111111111111111111111111111111111"
+        INTCONFIG:     std_logic_vector := "011011"
     );
     port (
         clk:        in  std_logic;
@@ -50,34 +50,17 @@ architecture Behavioral of apuf_wrapper is
     
     type state_t is (IDLE, EXEC, DONE);
     
-    impure function binstr_to_slv(s: string) return std_logic_vector is
-        variable res : std_logic_vector(s'length - 1 downto 0);
-    begin
-        for i in s'range loop
-            case s(i) is
-                when '0' => res(s'length - 1 - (i-s'low)) := '0';
-                when '1' => res(s'length - 1 - (i-s'low)) := '1';
-                when others => res(s'length - 1 - (i-s'low)) := 'X';
-            end case;
-        end loop;
-        return res;
-    end function;
-    
-    constant CONFIG: std_logic_vector(INTCONFIG'length - 1 downto 0) 
-        := binstr_to_slv(INTCONFIG);
     
     attribute MARK_DEBUG: boolean;
     attribute MARK_DEBUG of challenge: signal is true;
     
     signal current_state: state_t := IDLE;
 begin
-    assert CONFIG'length = BIT_WIDTH * 2
-    report "Invalid config length for raw APUFs";
     
     APUF_INST: entity work.nxn_apuf
     generic map (
         BIT_WIDTH => BIT_WIDTH, CHALL_BITS => CHALL_BITS,
-        INTCONFIG => CONFIG
+        INTCONFIG => INTCONFIG
     )
     port map (
         CLK => clk, IPULSE => trigger,

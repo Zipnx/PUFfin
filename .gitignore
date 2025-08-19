@@ -1,3 +1,10 @@
+
+# Per install config
+config.ini
+
+HCM_Lib/Debug
+HCM_Lib/Release
+
 # excluding the vivado project directories, gotta build em via tcl
 components/sysauth/sysauth
 components/rawapuf/rawapuf
@@ -9,6 +16,12 @@ components/rocount/rocount
 standalone/ps_auth/ps_auth
 standalone/ps_rawapuf/ps_rawapuf
 standalone/ps_apuftune/ps_apuftune
+
+*.hdf
+SDK.log
+RemoteSystemsTempFiles/
+*_hw_platform_0/
+.metadata/
 
 *.zip
 *.swp

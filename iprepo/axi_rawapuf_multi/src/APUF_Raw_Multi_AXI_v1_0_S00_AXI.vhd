@@ -84,7 +84,8 @@ entity APUF_Raw_Multi_AXI_v1_0_S00_AXI is
 end APUF_Raw_Multi_AXI_v1_0_S00_AXI;
 
 architecture arch_imp of APUF_Raw_Multi_AXI_v1_0_S00_AXI is
-
+    attribute MARK_DEBUG: boolean;
+    
 	-- AXI4LITE signals
 	signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
 	signal axi_awready	: std_logic;
@@ -120,6 +121,9 @@ architecture arch_imp of APUF_Raw_Multi_AXI_v1_0_S00_AXI is
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
     
+    attribute MARK_DEBUG of slv_reg0, slv_reg1, slv_reg2,
+                            slv_reg3, slv_reg4, slv_reg5: signal is true;
+    
     constant MULTI_COUNT: integer := 44;
 
     component raw_apuf_0
@@ -136,7 +140,8 @@ architecture arch_imp of APUF_Raw_Multi_AXI_v1_0_S00_AXI is
     signal sig_trigger, sig_busy: std_logic;
     signal sig_challenge: std_logic_vector(31 downto 0);
     signal sig_resp_container: std_logic_vector(255 downto 0) := (others => '0');
-
+    
+    attribute MARK_DEBUG of sig_trigger, sig_busy, sig_resp_container: signal is true;
 begin
 
     RAWAPUF_INST: raw_apuf_0 port map (

@@ -51,7 +51,7 @@ entity APUF_Raw_Multi_AXI_v1_0 is
 end APUF_Raw_Multi_AXI_v1_0;
 
 architecture arch_imp of APUF_Raw_Multi_AXI_v1_0 is
-
+    
 	-- component declaration
 	component APUF_Raw_Multi_AXI_v1_0_S00_AXI is
 		generic (

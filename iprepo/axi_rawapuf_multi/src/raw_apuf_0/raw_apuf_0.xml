@@ -79,6 +79,105 @@
     </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlinstantiationtemplate</spirit:name>
+        <spirit:displayName>VHDL Instantiation Template</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:synthesis.template</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlinstantiationtemplate_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Tue Aug 19 16:46:53 UTC 2025</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>outputProductCRC</spirit:name>
+            <spirit:value>9:2c551ce7</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_anylanguagesynthesis</spirit:name>
+        <spirit:displayName>Synthesis</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:synthesis</spirit:envIdentifier>
+        <spirit:modelName>apuf_wrapper</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_anylanguagesynthesis_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Tue Aug 19 16:47:01 UTC 2025</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>outputProductCRC</spirit:name>
+            <spirit:value>9:2c551ce7</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlsynthesiswrapper</spirit:name>
+        <spirit:displayName>VHDL Synthesis Wrapper</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:synthesis.wrapper</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>raw_apuf_0</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlsynthesiswrapper_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Tue Aug 19 16:47:01 UTC 2025</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>outputProductCRC</spirit:name>
+            <spirit:value>9:2c551ce7</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_anylanguagebehavioralsimulation</spirit:name>
+        <spirit:displayName>Simulation</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:simulation</spirit:envIdentifier>
+        <spirit:modelName>apuf_wrapper</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Tue Aug 19 16:47:01 UTC 2025</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>outputProductCRC</spirit:name>
+            <spirit:value>9:46e3c6c6</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlsimulationwrapper</spirit:name>
+        <spirit:displayName>VHDL Simulation Wrapper</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:simulation.wrapper</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>raw_apuf_0</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlsimulationwrapper_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Tue Aug 19 16:47:01 UTC 2025</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>outputProductCRC</spirit:name>
+            <spirit:value>9:46e3c6c6</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+    </spirit:views>
     <spirit:ports>
       <spirit:port>
         <spirit:name>clk</spirit:name>
@@ -87,7 +186,8 @@
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic</spirit:typeName>
-              <spirit:viewNameRef>dummy_view</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
         </spirit:wire>
@@ -99,7 +199,8 @@
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic</spirit:typeName>
-              <spirit:viewNameRef>dummy_view</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
         </spirit:wire>
@@ -115,7 +216,8 @@
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>dummy_view</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
         </spirit:wire>
@@ -127,7 +229,8 @@
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic</spirit:typeName>
-              <spirit:viewNameRef>dummy_view</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
         </spirit:wire>
@@ -143,7 +246,8 @@
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>dummy_view</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
         </spirit:wire>
@@ -160,13 +264,144 @@
         <spirit:displayName>Chall Bits</spirit:displayName>
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.CHALL_BITS">32</spirit:value>
       </spirit:modelParameter>
-      <spirit:modelParameter spirit:dataType="std_logic_vector">
+      <spirit:modelParameter spirit:dataType="string">
         <spirit:name>INTCONFIG</spirit:name>
         <spirit:displayName>Intconfig</spirit:displayName>
-        <spirit:value spirit:format="bitString" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.INTCONFIG" spirit:bitStringLength="6">&quot;011011&quot;</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.INTCONFIG">1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlinstantiationtemplate_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>raw_apuf_0.vho</spirit:name>
+        <spirit:userFileType>vhdlTemplate</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>raw_apuf_0.veo</spirit:name>
+        <spirit:userFileType>verilogTemplate</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/puf_starter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/chain.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/arbiter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/nxn_apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/apuf_wrapper.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/puf_starter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/chain.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/arbiter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/nxn_apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/apuf_wrapper.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlsynthesiswrapper_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>synth/raw_apuf_0.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>xil_defaultlib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/puf_starter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/chain.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/arbiter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/nxn_apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/apuf_wrapper.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/puf_starter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/chain.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/arbiter.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/nxn_apuf.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../components/rawapuf/vhd/apuf_wrapper.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlsimulationwrapper_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>sim/raw_apuf_0.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>xil_defaultlib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
   <spirit:description>Raw Arbiter PUF core to be used in the APUF core or directly for tuning/testing. NEVER TO BE USED DIRECTLY ELSE</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
@@ -182,7 +417,7 @@
     <spirit:parameter>
       <spirit:name>INTCONFIG</spirit:name>
       <spirit:displayName>Intconfig</spirit:displayName>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.INTCONFIG" spirit:bitStringLength="6">&quot;011011&quot;</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.INTCONFIG">1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
@@ -193,7 +428,7 @@
     <xilinx:coreExtensions>
       <xilinx:displayName>raw_apuf</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>3</xilinx:coreRevision>
+      <xilinx:coreRevision>5</xilinx:coreRevision>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@20904f69_ARCHIVE_LOCATION">d:/Programs/Vivado/puffin/iprepo/raw_apuf</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@103c0082_ARCHIVE_LOCATION">d:/Programs/Vivado/puffin/iprepo/raw_apuf</xilinx:tag>
@@ -228,18 +463,52 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@20bc6f5e_ARCHIVE_LOCATION">d:/Programs/Vivado/puffin/iprepo/raw_apuf</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@b8e4c14_ARCHIVE_LOCATION">d:/Programs/Vivado/puffin/iprepo/raw_apuf</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3aca02e5_ARCHIVE_LOCATION">d:/Programs/Vivado/puffin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c77588a_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a77a410_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f374fef_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a25707e_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18d7050b_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b9453d4_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@710719af_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f2d762_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c818dff_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4260cee1_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dcaa2e3_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@225a6233_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@597134a1_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61455b2e_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3479a755_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@424e2b0c_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e290163_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6bae5c42_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67017561_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f725508_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@162c1ab2_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e63823a_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@648e7be1_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@188f3a7f_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@534224c1_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6643a6f_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@295eeefd_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1060f505_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68585896_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53877228_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a0e48f_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ea98951_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48a2b9fd_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/raw_apuf</xilinx:tag>
       </xilinx:tags>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.BIT_WIDTH" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.INTCONFIG" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="a88d4390"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="2070a7c2"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8ca80d7a"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="b9db956a"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="558326e0"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="0d2b5a83"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="6a6e6649"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="cd37b42c"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>
