@@ -2,8 +2,11 @@
 # Per install config
 config.ini
 
-HCM_Lib/Debug
-HCM_Lib/Release
+# SDK Exclusions
+Packages/
+.settings
+Debug/
+Release/
 
 # excluding the vivado project directories, gotta build em via tcl
 components/sysauth/sysauth
