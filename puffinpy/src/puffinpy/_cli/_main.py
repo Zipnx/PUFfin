@@ -54,7 +54,7 @@ the libhcm firmware.
             print('[!] Error:', str(e))
             return
 
-        print(f'Response: 0x{hex(response)}')
+        print(f'Response: {hex(response)}')
 
     def do_rawapuf(self, arg):
         try:
@@ -73,7 +73,7 @@ the libhcm firmware.
             print('[!] Error:', str(e))
             return
 
-        print(f'Response: 0x{hex(response)}')
+        print(f'Response: {hex(response)}')
 
 
     def do_test(self, arg):

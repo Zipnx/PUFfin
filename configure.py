@@ -39,24 +39,29 @@ def main():
 
     config['DEFAULT'] = {
         # TODO: Autoresolve then ask the user with a default
-        'buildcores': str(input('Enter number of cores to use for vivado jobs: '))
+        'buildcores': str(input('Enter number of cores to use for vivado jobs: ')),
+        # Just so it can be manually set from the config.ini file,
+        # once the target autoresolve is made, this can be removed
+        'xsct_target': 2
     }
     
     try:
-        vivado_base = Path(input('Enter the absolute path to your vivado install: '))
+        xil_base = Path(input('Enter the absolute path to your xilinx install: '))
+        xil_version = input('Enter your vivado version (default: 2018.3): ') or '2018.3'
     except:
         error('Invalid path')
         return
     
-    if not isDirectory(vivado_base):
+    if not isDirectory(xil_base):
         error('Path does not exist')
         return
-
-    config['PATHS'] = {
-        'vivado': vivado_base / VIVADO,
-        'xsct':   vivado_base / XSCT
-    }
     
+    config['PATHS'] = {
+        'root':   Path(__file__).resolve().parent,
+        'vivado': xil_base / f'Vivado/{xil_version}/bin/' / VIVADO,
+        'xsct':   xil_base / f'SDK/{xil_version}/bin/' / XSCT
+    }
+
     good('Writing config to file')
 
     with open('config.ini', 'w') as f:

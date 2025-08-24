@@ -28,15 +28,12 @@ def wininit_stats():
 
 def wininit_apufinteract():
     with dpg.window(label = "Direct APUF", tag = WinType.APUF_INTERACT.value):
-        dpg.add_text("Enter Challenge:")
+        dpg.add_text("Enter Challenge (dev/hex):")
         dpg.add_input_text(tag = "apufinteract_chall")
         dpg.add_button(label = "Execute")
-        dpg.add_spacer(height = 3)
-
-        with dpg.group(horizontal = True):
-            dpg.add_text('Resp:')
-            dpg.add_input_text(tag = "apufinteract_resp", 
-                               readonly = True, width = -1)
+        dpg.add_spacer(height = 8)
+        dpg.add_input_text(tag = "apufinteract_resp", 
+                           readonly = True, width = -1)
 
 def wininit_apufsampler():
     with dpg.window(label = "APUF Sampler", tag = WinType.APUF_SAMPLER.value,
@@ -48,6 +45,19 @@ def wininit_apufsampler():
             dpg.add_input_int(tag = 'apufsampler_count', width = 120,
                               default_value = 8192,
                               min_value = 128, max_value = 65536)
+        
+        with dpg.group(horizontal = True):
+            dpg.add_text('Repeat Count: ')
+            dpg.add_input_int(tag = 'apufsampler_repcount', 
+                              default_value = 1, width = 100, 
+                              min_value = 1, max_value = 128)
+
+        with dpg.group(horizontal = True):
+            dpg.add_text("Chunk Size: ")
+            dpg.add_input_int(tag = "apufsampler_chunksize", 
+                              default_value = 64, width = 100,
+                              min_value = 1, max_value = 1024) 
+            # TODO: Make the chunk max be identified by the hcm rx buffer tize
 
         with dpg.group(horizontal = True):
             dpg.add_text("Sampling Method: ")

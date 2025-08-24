@@ -145,16 +145,20 @@ class HCMCommander:
         return struct.unpack('>I', result.data[0:4])[0]
 
 
-    def rawapuf_single(self, challenge: int) -> int:
+    def rawapuf_single(self, challenge: int | bytes) -> int:
+        
+        if isinstance(challenge, int):
+            try:
+                chall = struct.pack('>I', challenge)
+            except BaseException:
+                raise ValueError(f'Value {challenge} is not a valid uint32 challenge')
+        else:
+            chall = challenge
 
         if self.is_sim:
             return struct.unpack('>I', sim_apuf_single(challenge))[0]
         
-        try:
-            chall = struct.pack('>I', challenge)
-        except BaseException:
-            raise ValueError(f'Value {challenge} is not a valid uint32 challenge')
-
+        
         cmd = Command(Opcode.RAWAPUF_SINGLE, data = chall)
         result = self.push_command(cmd)
 
