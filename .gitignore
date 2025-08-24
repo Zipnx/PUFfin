@@ -20,6 +20,7 @@ standalone/ps_auth/ps_auth
 standalone/ps_rawapuf/ps_rawapuf
 standalone/ps_apuftune/ps_apuftune
 
+*.bit
 *.hdf
 SDK.log
 RemoteSystemsTempFiles/
@@ -31,6 +32,7 @@ RemoteSystemsTempFiles/
 
 # Not gonna upload the collected results from the scripts, at least not needlessly
 scripts/apufs/collection/*.json
+*.tmp.tcl
 
 # NOTTODOANYMORE: Might actually be fine to ship the ip repo files...
 #       Need to look further into this.
