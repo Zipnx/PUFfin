@@ -257,7 +257,8 @@ HCMSTATUS HCM_EnableROPUF(HCM* module, uint32_t ropuf_base) {
 HCMSTATUS HCM_EnableAES(HCM* module, uint32_t aes_base) {
 
 	module->hw_addrs.aes = aes_base;
-	module->capabilities |= HCMCAP_AES;
+	module->capabilities |= HCMCAP_AES_ENC;
+	module->capabilities |= HCMCAP_AES_DEC;
 
 	OKAY("[0x%p] AES Core enabled.", aes_base);
 
@@ -315,20 +316,28 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 		return HCMSUCCESS;
 
 	case OP_APUF_SINGLE:
+		if ((module->permissions & HCMCAP_APUF) == 0)
+			goto err_receive_denied;
+
 		// TODO: Execute 1 challenge on the APUF
 		return HCMSUCCESS;
 
 	case OP_APUF_BATCH:
+		if ((module->permissions & HCMCAP_APUF) == 0)
+			goto err_receive_denied;
+
 		// TODO: Execute a variable number of challenges
 		return HCMSUCCESS;
 
 	case OP_RDTEMP:
+		if ((module->permissions & HCMCAP_XADC) == 0)
+			goto err_receive_denied;
+
 		status = HCM_Sysmon_temperature(module, &temp);
 
 		if (status != HCMSUCCESS) {
 			pack_int(status, resp.data);
-
-			return HCMFAILURE;
+			goto err_receive_internal;
 		}
 
 		memcpy(resp.data, &temp, 4);
@@ -342,34 +351,39 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 		return HCMSUCCESS;
 
 	case OP_RDPUFKY:
+		if ((module->permissions & HCMCAP_ROPUF) == 0)
+			goto err_receive_denied;
+
 		// TODO: Read the generated key from the ROPUF
 		return HCMSUCCESS;
 
 	case OP_RAWAPUF_SINGLE:
-		INFO("Executing raw apuf builtin");
-		pack_int(0x41414141, resp.data);
-		resp.size = 5;
-		HCM_ResponseSend(module, &resp);
+		if ((module->permissions & HCMCAP_RAW_APUF) == 0)
+			goto err_receive_denied;
 
-		return HCMSUCCESS;
+		INFO("Executing raw apuf builtin");
+		//pack_int(0x41414141, resp.data);
+		//resp.size = 5;
+		//HCM_ResponseSend(module, &resp);
+		//return HCMSUCCESS;
 
 		if (out_command->size != 4) {
-			// TODO: Return error to user
-			return HCMFAILURE;
+			goto err_receive_invalid;
 		}
 
 		uint32_t challenge = unpack_int(out_command->data);
+		INFO("Challenge: 0x%08x\n", challenge);
 		uint32_t response;
 
 		status = RawAPUF_execute(module, challenge, &response);
+		OKAY("Response: 0x%08x\n", response);
 
 		if (status != HCMSUCCESS) {
-			// TODO: Again return an error to user
-			return HCMFAILURE;
+			goto err_receive_internal;
 		}
 
 		pack_int(response, resp.data);
-		resp.size = 2;
+		resp.size = 4;
 
 		status = HCM_ResponseSend(module, &resp);
 
@@ -381,4 +395,24 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 
 	// Indicate that the packet should be processed by non-lib processes
 	return HCMPASS;
+
+	// Handlers for possible errors
+err_receive_internal:
+	ERROR("Internal error when executing op=0x%02x size=%hi\n", out_command->opcode, out_command->size);
+	pack_int(HCMFAILURE, resp.data);
+	resp.size = 4;
+	resp.flags |= 1;
+	return HCM_ResponseSend(module, &resp);
+
+err_receive_invalid:
+	pack_int(HCMMALFORMED, resp.data);
+	resp.size = 4;
+	resp.flags |= 1;
+	return HCM_ResponseSend(module, &resp);
+
+err_receive_denied:
+	pack_int(HCMDENIED, resp.data);
+	resp.size = 4;
+	resp.flags |= 0x1;
+	return HCM_ResponseSend(module, &resp);
 }
