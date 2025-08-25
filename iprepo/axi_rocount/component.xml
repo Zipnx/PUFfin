@@ -753,8 +753,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>ROCount_AXI_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>3</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2025-08-25T10:10:14Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>4</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2025-08-25T19:01:27Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@42a02337_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7080e668_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
@@ -771,6 +771,12 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@67e2dfb9_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6c60eb9d_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@438a1594_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a106ad7_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20340308_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f6aac5e_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52b5fc2d_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24897493_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4aa24ad1_ARCHIVE_LOCATION">c:/Programs/Vivado/PUFfin/iprepo/axi_rocount</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
