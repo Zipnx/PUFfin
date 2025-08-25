@@ -16,7 +16,7 @@ components/axi_sysauth/axi_sysauth
 components/axi_rawapuf/axi_rawapuf
 components/axi_rawapuf_multi/axi_rawapuf_multi
 components/rocount/rocount
-compoentns/axi_rocount/axi_rocount
+components/axi_rocount/axi_rocount
 
 standalone/ps_auth/ps_auth
 standalone/ps_rawapuf/ps_rawapuf
