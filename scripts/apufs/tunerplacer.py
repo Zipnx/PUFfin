@@ -146,7 +146,7 @@ def generate_xdc(placements: List[PUFPlacement]) -> str:
 def main():
     
     info(f"Getting available placements from {len(SECTS)} sectors")
-    placements = fill_sectors((0, 0))
+    placements = fill_sectors((3, 3))
     good(f'Got {len(placements)} placements')    
     
     info('Generating XDC...')
