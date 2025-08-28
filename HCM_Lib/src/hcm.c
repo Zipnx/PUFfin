@@ -7,6 +7,7 @@
 
 #include "hcm.h"
 #include "primitives/rawapuf.h"
+#include "primitives/apuf.h"
 
 XUartPs debug_uart;
 static bool debug_uart_enabled = false;
@@ -282,6 +283,7 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 
 	Response resp;
 	float temp;
+	uint32_t challenge, response;
 	HCM_ResponseMake(module, &resp);
 
 	INFO("Checking for builtin command");
@@ -319,7 +321,33 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 		if ((module->permissions & HCMCAP_APUF) == 0)
 			goto err_receive_denied;
 
-		// TODO: Execute 1 challenge on the APUF
+		INFO("Executing single apuf builtin");
+		//pack_int(0x41414141, resp.data);
+		//resp.size = 5;
+		//HCM_ResponseSend(module, &resp);
+		//return HCMSUCCESS;
+
+		if (out_command->size != 4) {
+			goto err_receive_invalid;
+		}
+
+		challenge = unpack_int(out_command->data);
+		INFO("Challenge: 0x%08x\n", challenge);
+
+		status = APUF_execute(module, challenge, &response);
+		OKAY("Response: 0x%08x\n", response);
+
+		if (status != HCMSUCCESS) {
+			goto err_receive_internal;
+		}
+
+		pack_int(response, resp.data);
+		resp.size = 4;
+
+		status = HCM_ResponseSend(module, &resp);
+
+		if (status != HCMSUCCESS) return status;
+
 		return HCMSUCCESS;
 
 	case OP_APUF_BATCH:
@@ -371,9 +399,8 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 			goto err_receive_invalid;
 		}
 
-		uint32_t challenge = unpack_int(out_command->data);
+		challenge = unpack_int(out_command->data);
 		INFO("Challenge: 0x%08x\n", challenge);
-		uint32_t response;
 
 		status = RawAPUF_execute(module, challenge, &response);
 		OKAY("Response: 0x%08x\n", response);

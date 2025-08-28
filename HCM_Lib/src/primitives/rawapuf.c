@@ -9,7 +9,8 @@
 
 /* RAW APUF FUNCTIONALITY
  * ======================
- * RESET 		=> slv_reg0(0)
+ * TRIGGER 		=> slv_reg0(0)
+ * RESET 		=> slv_reg0(31)
  * CHALLENGE  	=> slv_reg1
  * RESPONSE   	=> slv_reg2
  * BUSY		 	=> slv_reg3(0)
