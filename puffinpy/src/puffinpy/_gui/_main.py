@@ -6,13 +6,19 @@ from puffinpy._gui._windows import (wininit_stats, wininit_apufinteract, wininit
 
 from importlib.resources import files as pkg_files
 from pathlib import Path
+import time
+
+from puffinpy import HCMCommander
 
 LAYOUTS = pkg_files("puffinpy._gui._layouts")
 DEFAULT_LAYOUT = LAYOUTS / "default.dpg"
 
+last_poll_time = 0
+
 class PuffinGUI:
     def __init__(self, port: str, config):
         self.window_tag = "winmain"
+        self.hcm = HCMCommander(port = '', simulate = True)
 
     def setup(self):
         dpg.create_context()
@@ -22,9 +28,11 @@ class PuffinGUI:
         
         # Will make the docking preset later, rn just doin quick dev
         wininit_stats()
-        wininit_apufinteract()
+        self.setup_heartbeat()
+
+        wininit_apufinteract(self.hcm)
         wininit_apufsampler()
-        wininit_keygen()
+        wininit_keygen(self.hcm)
         wininit_console()
         wininit_debugcon()
         
@@ -46,6 +54,20 @@ class PuffinGUI:
                 dpg.add_menu_item(label = 'Load layout')
                 dpg.add_menu_item(label = 'Reset to Default', callback = self.load_default_layout)
             
+    def setup_heartbeat(self):
+        def poll_temp(sender, app_data):
+            global last_poll_time
+            now = time.time()
+            
+            if now - last_poll_time >= 5:
+                last_poll_time = now
+                temp = self.hcm.get_temperature()
+                dpg.set_value('stats_temp_readout', format(temp, '.2f'))
+                dpg.configure_item("stats_status_display", fill = (0, 255, 0, 255))
+
+            dpg.set_frame_callback(dpg.get_frame_count() + 32, poll_temp)
+
+        poll_temp(None, None)
 
     def run(self):
         self.setup()

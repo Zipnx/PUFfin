@@ -1,5 +1,6 @@
 
 import dearpygui.dearpygui as dpg
+from puffinpy._commander import HCMCommander
 from puffinpy._gui._structures import WinType
 
 def wininit_stats():
@@ -26,11 +27,29 @@ def wininit_stats():
             with dpg.drawlist(width = 30, height = 30):
                 dpg.draw_rectangle((0, 0), (20, 20), fill = (255, 0, 0, 255), tag = "stats_status_display")
 
-def wininit_apufinteract():
+def wininit_apufinteract(hcm: HCMCommander):
+
+    def apuf_callback(sender, app_data):
+        challenge = dpg.get_value("apufinteract_chall")
+        
+        try:
+            challenge = int(challenge)
+        except ValueError:
+            print('Invalid challenge (make proper error display at the console)')
+            return
+
+        if challenge.bit_length() > 32:
+            print('Invalid challenge bit length')
+            return
+
+        resp = hcm.apuf_single(challenge)
+        dpg.set_value('apufinteract_resp', hex(resp))
+
+
     with dpg.window(label = "Direct APUF", tag = WinType.APUF_INTERACT.value):
-        dpg.add_text("Enter Challenge (dev/hex):")
+        dpg.add_text("Enter Challenge (dec/hex):")
         dpg.add_input_text(tag = "apufinteract_chall")
-        dpg.add_button(label = "Execute")
+        dpg.add_button(label = "Execute", callback = apuf_callback)
         dpg.add_spacer(height = 8)
         dpg.add_input_text(tag = "apufinteract_resp", 
                            readonly = True, width = -1)
@@ -74,12 +93,30 @@ def wininit_apufsampler():
         dpg.add_button(label = 'Start Sampler')
         dpg.add_spacer(height = 4)
 
-def wininit_keygen():
+def wininit_keygen(hcm: HCMCommander):
+    KEYTYPES = ['Primary', 'Secondary', 'Tertiary']
+    
+    def callback_keygen(sender, app_data):
+        keytype = dpg.get_value('keygen_keytype')
+        select = KEYTYPES.index(keytype)
+
+        result = hcm.ropuf(select)
+        dpg.set_value('keygen_readout', result.hex())
+
     with dpg.window(label = "Key Generation", tag = WinType.KEYGEN.value):
         dpg.add_text("Secret Key:")
-        dpg.add_input_text(tag = "keygen_readout", readonly = True)
+        with dpg.group(horizontal = True):
+            dpg.add_text('Key:')
+            dpg.add_combo(
+                width = 100,
+                items = KEYTYPES,
+                default_value = KEYTYPES[0],
+                tag = "keygen_keytype"
+            )
+
+        dpg.add_input_text(tag = "keygen_readout", readonly = True, width = -1)
         dpg.add_spacer(height = 3)
-        dpg.add_button(label = "Generate")
+        dpg.add_button(label = "Generate", callback = callback_keygen)
 
 
 def wininit_console():

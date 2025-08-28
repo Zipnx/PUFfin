@@ -14,17 +14,13 @@ class HCMCommander:
         self.is_debug = debug
         self.is_sim   = simulate
         self.config   = HCMConfig()
+        self.conn     = None
 
         if debug:
             print(f'[DEBUG] Starting HCM commander at {port=}, {debug=} {simulate=}')
 
-        try:
-            self.conn = serial.Serial(
-                port     = self.port,
-                baudrate = self.config.BAUD_RATE,
-                timeout  = self.config.TIMEOUT
-            ) if not simulate else None
-        except serial.SerialException:
+        
+        if not self.connect():
             raise ValueError(f'Specified port "{port}" is unavailable')
 
         self.command_queue = queue.Queue()
@@ -32,6 +28,21 @@ class HCMCommander:
         self.worker_thr = threading.Thread(target = self._worker, args = ())
         self.worker_thr.daemon = True
         self.worker_thr.start()
+    
+    def connect(self):
+        # TODO: Use this to refresh the connection, specifically in the 
+        #       case where the device restarts, rn it causes an error
+        try:
+            self.conn = serial.Serial(
+                port     = self.port,
+                baudrate = self.config.BAUD_RATE,
+                timeout  = self.config.TIMEOUT
+            ) if not self.is_sim else None
+            return True
+        except serial.SerialException:
+            return False
+    
+    def is_connected(self): return self.conn is not None
 
     def push_command(self, cmd: Command) -> Response:
         req = CommandRequest(cmd)
