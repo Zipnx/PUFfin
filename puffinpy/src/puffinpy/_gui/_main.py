@@ -9,6 +9,7 @@ from pathlib import Path
 import time
 
 from puffinpy import HCMCommander
+from puffinpy._utils import bytecount_shorten
 
 LAYOUTS = pkg_files("puffinpy._gui._layouts")
 DEFAULT_LAYOUT = LAYOUTS / "default.dpg"
@@ -59,11 +60,21 @@ class PuffinGUI:
             global last_poll_time
             now = time.time()
             
-            if now - last_poll_time >= 5:
+            if now - last_poll_time >= 2:
                 last_poll_time = now
                 temp = self.hcm.get_temperature()
                 dpg.set_value('stats_temp_readout', format(temp, '.2f'))
                 dpg.configure_item("stats_status_display", fill = (0, 255, 0, 255))
+
+                rx_rate  = self.hcm.traffic.rx_get_rate()
+                rx_total = self.hcm.traffic.rx_total
+
+                tx_rate  = self.hcm.traffic.tx_get_rate()
+                tx_total = self.hcm.traffic.tx_total
+
+                dpg.set_value('stats_rx_readout', f'{bytecount_shorten(rx_total)} ({bytecount_shorten(rx_rate)}/s)') 
+                dpg.set_value('stats_tx_readout', f'{bytecount_shorten(tx_total)} ({bytecount_shorten(tx_rate)}/s)') 
+
 
             dpg.set_frame_callback(dpg.get_frame_count() + 32, poll_temp)
 

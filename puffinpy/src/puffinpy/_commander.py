@@ -6,6 +6,7 @@ from typing import List, Optional, Tuple
 from puffinpy._command import CommandRequest, Command, Opcode, Response, ResponseFlags
 from puffinpy._settings import HCMConfig
 from puffinpy._sim import sim_apuf_batch, sim_apuf_single, sim_ropuf, sim_temperature
+from puffinpy._traffic import TrafficTracker
 
 class HCMCommander:
     def __init__(self, port: str, debug = False, simulate = False):
@@ -28,7 +29,9 @@ class HCMCommander:
         self.worker_thr = threading.Thread(target = self._worker, args = ())
         self.worker_thr.daemon = True
         self.worker_thr.start()
-    
+        
+        self.traffic = TrafficTracker(window = 10.)
+
     def connect(self):
         # TODO: Use this to refresh the connection, specifically in the 
         #       case where the device restarts, rn it causes an error
@@ -79,6 +82,8 @@ class HCMCommander:
 
         data = self.conn.read(size = packet_size) if packet_size > 0 else None
         
+        self.traffic.rx_add(packet_size + 3)
+
         if data is not None and len(data) != packet_size:
             return 0, 0x1, b'[CORE] Received invalid data count'
 
@@ -90,7 +95,8 @@ class HCMCommander:
             return
 
         data = req.command.pack()
-        
+        self.traffic.tx_add(len(data))
+
         self.conn.write(data)
 
         rsize, rflags, rdata = self._receive_packet()
