@@ -26,18 +26,35 @@ the libhcm firmware.
         ) 
     
     def do_query(self, arg):
+        '''
+        Usage: query
+
+        Query the capabilities of the device.
+        IE: Whether it has enabled APUF, ROPUF, AES, etc...
+        '''
         print('UNIMPLEMENTED')
         print('Query available capabilities of the device')
 
     def do_temperature(self, arg):
+        '''
+        Usage: temperature
+
+        Get the temperature of the board from the XADC
+        '''
         try:
             temp = self.hcm.get_temperature()
         except ValueError:
             print('[!] Error retrieving temperature')
+            return
 
         print('Temperature:', temp)
     
     def do_apuf(self, arg):
+        '''
+        Usage: apuf <CHALLENGE>
+
+        Send a challenge to the Arbiter PUF and get back a response.
+        '''
         try:
             chall = int(arg)
         except ValueError:
@@ -57,6 +74,12 @@ the libhcm firmware.
         print(f'Response: {hex(response)}')
 
     def do_rawapuf(self, arg):
+        '''
+        Usage: rawapuf <CHALLENGE>
+
+        DEV: Used mostly for testing the raw apuf, this is pretty much
+        always disabled.
+        '''
         try:
             chall = int(arg)
         except ValueError:
@@ -75,12 +98,23 @@ the libhcm firmware.
 
         print(f'Response: {hex(response)}')
 
+    def do_reconnect(self, arg):
+        '''
+        Usage: reconnect
 
-    def do_test(self, arg):
-        print('Just checkin:', arg)
+        Used to reconnect to the board, needed after a board restarts/is reflashed
+        '''
+        res = self.hcm.connect()
 
+        if res:
+            print('Connected to board.')
+        else:
+            print('Failure connecting.')
 
     def do_exit(self, arg):
+        '''
+        Just exiting
+        '''
         print('Exiting...')
         return True
 
