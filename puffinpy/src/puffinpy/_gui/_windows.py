@@ -13,12 +13,12 @@ def wininit_stats():
                                readonly = True, width = -1)
 
         with dpg.group(horizontal = True):
-            dpg.add_text("TX:")
+            dpg.add_text("RX:")
             dpg.add_input_text(tag = "stats_rx_readout",
                                readonly = True, width = -1)
 
         with dpg.group(horizontal = True):
-            dpg.add_text("RX:")
+            dpg.add_text("TX:")
             dpg.add_input_text(tag = "stats_tx_readout",
                                readonly = True, width = -1)
 

@@ -85,7 +85,7 @@ def main():
         }, f, indent = 4)
         f.write('\n')
 
-    good(f'Results written to "{arga.output}"')
+    good(f'Results written to "{args.output}"')
 
 if __name__ == '__main__':
     main()

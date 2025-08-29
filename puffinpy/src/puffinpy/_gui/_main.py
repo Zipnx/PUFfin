@@ -6,7 +6,7 @@ from puffinpy._gui._windows import (wininit_stats, wininit_apufinteract, wininit
 
 from importlib.resources import files as pkg_files
 from pathlib import Path
-import time
+import time, argparse
 
 from puffinpy import HCMCommander
 from puffinpy._utils import bytecount_shorten
@@ -19,7 +19,7 @@ last_poll_time = 0
 class PuffinGUI:
     def __init__(self, port: str, config):
         self.window_tag = "winmain"
-        self.hcm = HCMCommander(port = '', simulate = True)
+        self.hcm = HCMCommander(port = 'COM4', simulate = False)
 
     def setup(self):
         dpg.create_context()
@@ -27,6 +27,9 @@ class PuffinGUI:
         
         self.setup_menubar()
         
+        width, height, chan, data = dpg.load_image("logo.png")
+
+
         # Will make the docking preset later, rn just doin quick dev
         wininit_stats()
         self.setup_heartbeat()
@@ -86,5 +89,9 @@ class PuffinGUI:
         dpg.destroy_context()
 
 def main():
-    app = PuffinGUI('COM4', None)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('serial', type=str, help = 'Serial port to connect to')
+    args = parser.parse_args()
+
+    app = PuffinGUI(args.serial, None)
     app.run()
