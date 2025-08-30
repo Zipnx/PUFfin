@@ -32,4 +32,4 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"puffinpy._gui._layouts" = ["*.dpg"]
+"puffinpy._gui._layouts" = ["*.dpg", "*.png"]

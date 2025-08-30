@@ -235,3 +235,28 @@ class HCMCommander:
             return b''
 
         return res.data
+
+    def aes_encrypt(self, key: bytes, plain: bytes) -> bytes:
+        if len(key) != 16 or len(plain) != 16:
+            raise ValueError(f'Key/Plaintext must be 16 bytes')
+
+        cmd = Command(Opcode.AES_ENCRYPT, key + plain)
+        res = self.push_command(cmd)
+
+        if res.error is not None or res.data is None or res.size != 16:
+            return b''
+
+        return res.data
+
+    def aes_decrypt(self, key: bytes, ciph: bytes) -> bytes:
+        if len(key) != 16 or len(ciph) != 16:
+            raise ValueError(f'Key/Ciphertext must be 16 bytes')
+
+        cmd = Command(Opcode.AES_ENCRYPT, key + ciph)
+        res = self.push_command(cmd)
+
+        if res.error is not None or res.data is None or res.size != 16:
+            return b''
+
+        return res.data
+

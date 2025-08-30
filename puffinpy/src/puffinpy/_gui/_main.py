@@ -13,13 +13,14 @@ from puffinpy._utils import bytecount_shorten
 
 LAYOUTS = pkg_files("puffinpy._gui._layouts")
 DEFAULT_LAYOUT = LAYOUTS / "default.dpg"
+LOGO = LAYOUTS / "logo.png"
 
 last_poll_time = 0
 
 class PuffinGUI:
-    def __init__(self, port: str, config):
+    def __init__(self, port: str, simulate: bool = False):
         self.window_tag = "winmain"
-        self.hcm = HCMCommander(port = 'COM4', simulate = False)
+        self.hcm = HCMCommander(port = port, simulate = simulate)
 
     def setup(self):
         dpg.create_context()
@@ -27,7 +28,7 @@ class PuffinGUI:
         
         self.setup_menubar()
         
-        width, height, chan, data = dpg.load_image("logo.png")
+        #width, height, chan, data = dpg.load_image(LOGO)
 
 
         # Will make the docking preset later, rn just doin quick dev
@@ -91,7 +92,8 @@ class PuffinGUI:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('serial', type=str, help = 'Serial port to connect to')
+    parser.add_argument('--sim', action = 'store_true', help = "Run in simulation mode")
     args = parser.parse_args()
 
-    app = PuffinGUI(args.serial, None)
+    app = PuffinGUI(args.serial, args.sim)
     app.run()
