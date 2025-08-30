@@ -17,11 +17,14 @@ components/axi_rawapuf/axi_rawapuf
 components/axi_rawapuf_multi/axi_rawapuf_multi
 components/rocount/rocount
 components/axi_rocount/axi_rocount
+components/axi_aes_enc/axi_aes_enc
+components/axi_aes_dec/axi_aes_dec
 
 standalone/ps_auth/ps_auth
 standalone/ps_rawapuf/ps_rawapuf
 standalone/ps_apuftune/ps_apuftune
 standalone/ps_rocount/ps_rocount
+standalone/ps_aes/ps_aes
 
 # More SDK exclusions
 *.bit
