@@ -9,6 +9,8 @@
 #include "primitives/rawapuf.h"
 #include "primitives/apuf.h"
 #include "primitives/ropuf.h"
+#include "primitives/aes_enc.h"
+#include "primitives/aes_dec.h"
 
 XUartPs debug_uart;
 static bool debug_uart_enabled = false;
@@ -256,13 +258,22 @@ HCMSTATUS HCM_EnableROPUF(HCM* module, uint32_t ropuf_base) {
 	return HCMSUCCESS;
 }
 
-HCMSTATUS HCM_EnableAES(HCM* module, uint32_t aes_base) {
+HCMSTATUS HCM_EnableAESEnc(HCM* module, uint32_t aes_base) {
 
-	module->hw_addrs.aes = aes_base;
+	module->hw_addrs.aes_enc = aes_base;
 	module->capabilities |= HCMCAP_AES_ENC;
+
+	OKAY("[0x%p] AES Encrypt Core enabled.", aes_base);
+
+	return HCMSUCCESS;
+}
+
+HCMSTATUS HCM_EnableAESDec(HCM* module, uint32_t aes_base) {
+
+	module->hw_addrs.aes_dec = aes_base;
 	module->capabilities |= HCMCAP_AES_DEC;
 
-	OKAY("[0x%p] AES Core enabled.", aes_base);
+	OKAY("[0x%p] AES Decrypt Core enabled.", aes_base);
 
 	return HCMSUCCESS;
 }
@@ -347,9 +358,7 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 
 		status = HCM_ResponseSend(module, &resp);
 
-		if (status != HCMSUCCESS) return status;
-
-		return HCMSUCCESS;
+		return status;
 
 	case OP_APUF_BATCH:
 		if ((module->permissions & HCMCAP_APUF) == 0)
@@ -383,8 +392,6 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 		if ((module->permissions & HCMCAP_ROPUF) == 0)
 			goto err_receive_denied;
 
-		// TODO: Read the generated key from the ROPUF
-
 		INFO("Executing PUFKY keygen");
 
 		if (out_command->size != 4) {
@@ -406,9 +413,7 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 		resp.size = 16;
 		status = HCM_ResponseSend(module, &resp);
 
-		if (status != HCMSUCCESS) return status;
-
-		return HCMSUCCESS;
+		return status;
 
 	case OP_RAWAPUF_SINGLE:
 		if ((module->permissions & HCMCAP_RAW_APUF) == 0)
@@ -439,9 +444,43 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 
 		status = HCM_ResponseSend(module, &resp);
 
-		if (status != HCMSUCCESS) return status;
+		return status;
 
-		return HCMSUCCESS;
+	case OP_AES_ENC:
+		if ((module->permissions & HCMCAP_AES_ENC) == 0)
+			goto err_receive_denied;
+
+		INFO("Executing AES encryption builtin");
+
+		if (out_command->size != 32)
+			goto err_receive_invalid;
+
+		status = aes_encrypt(module, out_command->data, out_command->data + 16, resp.data);
+
+		if (status != HCMSUCCESS) goto err_receive_internal;
+
+		resp.size = 16;
+		status = HCM_ResponseSend(module, &resp);
+
+		return status;
+
+	case OP_AES_DEC:
+		if ((module->permissions & HCMCAP_AES_DEC) == 0)
+			goto err_receive_denied;
+
+		INFO("Executing AES decryption builtin");
+
+		if (out_command->size != 32)
+			goto err_receive_invalid;
+
+		status = aes_decrypt(module, out_command->data, out_command->data + 16, resp.data);
+
+		if (status != HCMSUCCESS) goto err_receive_internal;
+
+		resp.size = 16;
+		status = HCM_ResponseSend(module, &resp);
+
+		return status;
 
 	}
 

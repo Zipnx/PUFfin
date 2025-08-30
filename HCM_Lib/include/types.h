@@ -19,7 +19,8 @@ typedef struct _HW_ADDRS {
 	uint32_t raw_apuf;
 	uint32_t apuf;
 	uint32_t ropuf;
-	uint32_t aes;
+	uint32_t aes_enc;
+	uint32_t aes_dec;
 } HW_ADDRS;
 
 typedef struct _HCM {
