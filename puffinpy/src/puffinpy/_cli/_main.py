@@ -97,6 +97,44 @@ the libhcm firmware.
             return
 
         print(f'Response: {hex(response)}')
+    
+    def do_pufky(self, arg):
+        '''
+        Usage: pufky <SELECT>
+
+        Get back a generated key from the pufky system
+        '''
+        
+        pshash = False
+
+        if ' ' in arg:
+            arg = arg.split(' ')
+            if len(arg) > 1:
+                pshash = 'pshash' in arg[1]
+
+            sel = arg[0]
+        else:
+            sel = arg
+
+        try:
+            sel = int(sel)
+            if pshash:
+                sel |= 0x80000000
+        except ValueError:
+            print('[!] Invalid select')
+            return
+        
+        if sel.bit_length() > 32:
+            print('[!] Select must be a uint32')
+            return
+        
+        try:
+            response = self.hcm.ropuf(sel)
+        except BaseException as e:
+            print('[!] Error:', str(e))
+            return
+
+        print(f'Key: {response.hex()}')
 
     def do_reconnect(self, arg):
         '''

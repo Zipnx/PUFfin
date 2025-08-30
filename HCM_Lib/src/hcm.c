@@ -8,6 +8,7 @@
 #include "hcm.h"
 #include "primitives/rawapuf.h"
 #include "primitives/apuf.h"
+#include "primitives/ropuf.h"
 
 XUartPs debug_uart;
 static bool debug_uart_enabled = false;
@@ -383,6 +384,30 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 			goto err_receive_denied;
 
 		// TODO: Read the generated key from the ROPUF
+
+		INFO("Executing PUFKY keygen");
+
+		if (out_command->size != 4) {
+			goto err_receive_invalid;
+		}
+		// the select
+		challenge = unpack_int(out_command->data);
+		INFO("Select: %d", challenge);
+
+		bool do_ps_hash = false;
+		if (HCMCAP_CHECK(module->capabilities, HCMCAP_ROPUF) && (challenge & 0x80000000) != 0)
+			do_ps_hash = true;
+
+		status = ropuf_execute(module, challenge, resp.data, do_ps_hash);
+
+		if (status != HCMSUCCESS)
+			goto err_receive_internal;
+
+		resp.size = 16;
+		status = HCM_ResponseSend(module, &resp);
+
+		if (status != HCMSUCCESS) return status;
+
 		return HCMSUCCESS;
 
 	case OP_RAWAPUF_SINGLE:
@@ -400,10 +425,10 @@ HCMSTATUS HCM_CommandReceive(HCM* module, Command* out_command) {
 		}
 
 		challenge = unpack_int(out_command->data);
-		INFO("Challenge: 0x%08x\n", challenge);
+		INFO("Challenge: 0x%08x", challenge);
 
 		status = RawAPUF_execute(module, challenge, &response);
-		OKAY("Response: 0x%08x\n", response);
+		OKAY("Response: 0x%08x", response);
 
 		if (status != HCMSUCCESS) {
 			goto err_receive_internal;

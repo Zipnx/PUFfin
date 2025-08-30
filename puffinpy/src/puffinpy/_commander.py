@@ -221,10 +221,17 @@ class HCMCommander:
         return responses
 
     def ropuf(self, select: int) -> bytes:
-        if select < 0 or select > self.config.MAX_ROPUF_SELECT:
+        if select < 0 or select & 0x7fffffff > self.config.MAX_ROPUF_SELECT:
             raise ValueError(f'Select "{select}" is not valid')
 
         if self.is_sim:
             return sim_ropuf(select)
 
-        raise ValueError('UNIMPLEMENTED')
+        payload = struct.pack('>I', select)
+        cmd = Command(Opcode.READ_PUFKY, data = payload)
+        res = self.push_command(cmd)
+
+        if res.error is not None or res.data is None or res.size != 16:
+            return b''
+
+        return res.data

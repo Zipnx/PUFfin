@@ -84,7 +84,7 @@ typedef enum {
 #define HCMCAP_RESERVED4	0x1000
 #define HCMCAP_RESERVED3	0x2000
 #define HCMCAP_RESERVED2	0x4000
-#define HCMCAP_RESERVED1	0x8000
+#define HCMCAP_OPT_PSHASH	0x8000
 
 #define HCMCAP_CHECK(cap, flag) ((cap & flag) != 0)
 #define HCMCAP_SET(cap, flag) (cap | flag);
