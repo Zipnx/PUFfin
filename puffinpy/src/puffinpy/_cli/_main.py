@@ -135,6 +135,61 @@ the libhcm firmware.
             return
 
         print(f'Key: {response.hex()}')
+    
+    def do_aesenc(self, arg):
+        '''
+        Usage: aesenc <KEY> <PLAIN>
+
+        Encrypt the plaintext with the given AES 128 bit key
+        '''
+
+        args = arg.split(' ')
+        if len(args) < 2:
+            print('[!] Usage: <KEY> <PLAIN>')
+            return
+
+        try:
+            key = bytes.fromhex(args[0])
+            plain = bytes.fromhex(args[1])
+        except:
+            print('[!] Invalid hex inputs')
+            return
+        
+        if len(key) != 16 or len(plain) != 16:
+            print('[!] Key/Plain must be 16 bytes')
+            return
+
+        result = self.hcm.aes_encrypt(key, plain)
+        
+        print(f'Encrypted: {result.hex()}')
+    
+    def do_aesdec(self, arg):
+        '''
+        Usage: aesdec <KEY (*)> <CIPHERTEXT>
+
+        Decrypt the ciphertext with the given key
+        (*): The key required in the last round key
+             from the aes key expansion.
+        '''
+        args = arg.split(' ')
+        if len(args) < 2:
+            print('[!] Usage: <KEY> <CIPHERTEXT>')
+            return
+
+        try:
+            key = bytes.fromhex(args[0])
+            ciph = bytes.fromhex(args[1])
+        except:
+            print('[!] Invalid hex inputs')
+            return
+        
+        if len(key) != 16 or len(ciph) != 16:
+            print('[!] Key/Plain must be 16 bytes')
+            return
+
+        result = self.hcm.aes_decrypt(key, ciph)
+
+        print(f'Decrypted: {result.hex()}')
 
     def do_reconnect(self, arg):
         '''

@@ -32,7 +32,8 @@ HCMSTATUS HCM_Sysmon_temperature(HCM* module, float* out_temperature);
 HCMSTATUS HCM_EnableRawAPUF(HCM* module, uint32_t raw_apuf_base);
 HCMSTATUS HCM_EnableAPUF(HCM* module, uint32_t apuf_base);
 HCMSTATUS HCM_EnableROPUF(HCM* module, uint32_t ropuf_base);
-HCMSTATUS HCM_EnableAES(HCM* module, uint32_t aes_base);
+HCMSTATUS HCM_EnableAESEnc(HCM* module, uint32_t aes_base);
+HCMSTATUS HCM_EnableAESDec(HCM* module, uint32_t aes_base);
 
 static inline void HCM_LockAll(HCM* module) { module->permissions = 0x0000; }
 static inline void HCM_Lock(HCM* module, uint16_t cap) { module->permissions &= (0xffff ^ cap); }
