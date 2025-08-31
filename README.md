@@ -2,13 +2,61 @@
 # PUFfin
 
 Git repo for the AMD OpenHardware Competition 2025
+Team: AOHW25_255
 
 |Board|Zybo Z7-10|
 |-----|----------|
 |Vivado/SDK Version|2018.3|
 |Python Version|3.12 (an earlier one can be used)|
 
-[README WIP]
+## Made By (AOHW25_255)
+ - Sofianos Lymouris 
+ - Nikos Pilichos
+ - Vasilis Giannoulis
+
+## Executing the Demo:
+First download the .bit, .elf and .tcl files from the releases tab:
+[Demo Files](https://github.com/Zipnx/PUFfin/releases/tag/demo)
+
+Then run xsct and execute the following:
+
+```tcl
+connect
+targets
+
+# Pick one of the ARM cores
+# Here we use the 2nd option
+
+targets 2
+source ps7_init.tcl
+ps7_init
+ps7_post_config
+fpga -file ./ps_triple.bit
+dow ./triple_demo.elf
+con
+```
+
+After the bitstream and the elf are loaded, make sure you have created a 
+virtual environment for python, in the root project directory and install the requirements as such:
+
+```
+python -m venv ./venv
+
+# If using linux enter the venv with
+source venv/bin/activate
+# If using windows then enter the venv with
+.\venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+Then you can test the board's capabilities by running either
+
+```
+puffincli -p <SERIALPORT>
+or 
+puffingui <SERIALPORT>
+```
 
 ## Resources Used
  1. tobiasrj20 
