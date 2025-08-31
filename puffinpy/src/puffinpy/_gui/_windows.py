@@ -1,7 +1,10 @@
 
+import threading, time, random, struct
 import dearpygui.dearpygui as dpg
+
 from puffinpy._commander import HCMCommander
 from puffinpy._gui._structures import WinType
+from puffinpy._apuf_analyze import plot_entropies
 
 def wininit_stats():
     with dpg.window(label = 'Device Statistics', tag = WinType.STATS.value, 
@@ -127,7 +130,67 @@ def wininit_aes(hcm: HCMCommander):
                     dpg.add_text('''NOTE: Due to how the AES core works, the key used for decryption
 must be the last round key from the aes key expansion.''')
 
-def wininit_apufsampler():
+sampling_underway = False
+latest_sampling_data = {}
+
+def wininit_apufsampler(hcm: HCMCommander):
+
+    def sample():
+        global sampling_underway
+        global latest_sampling_data
+        
+        # For now, since the batching system on the firmware is not done,
+        # the chunksize is ignored, also dont have time for the reps,
+        # so no reliability checks
+
+        samples = dpg.get_value("apufsampler_count")
+        reps    = dpg.get_value("apufsampler_repcount")
+        is_seq  = dpg.get_value("apufsampler_method") == 'Sequential'
+        randseed= dpg.get_value("apufsampler_seed")
+        chunk   = dpg.get_value("apufsampler_chunksize")
+
+        for i in range(samples):
+            chall = struct.pack('>I', i) if is_seq else random.randbytes(4) 
+            resp = hcm.apuf_single(chall)
+            
+            if resp < 0:
+                print('[!] Sampling encountered error')
+                sampling_underway = False
+                latest_sampling_data = {}
+                return
+            
+            # TODO: Make it into a list, so that in the future,
+            #       the rep tests can be stored
+            latest_sampling_data[chall.hex()] = resp
+            
+            dpg.set_value("apufsampler_progress", i/samples)
+            prog = (i / samples) * 100
+            dpg.configure_item("apufsampler_prog_value", default_value = f'{prog:.2f}%')
+
+        print('[+] Sampling complete')
+        toggle_post_actions(True)
+        sampling_underway = False
+
+    def start_sampling():
+        global sampling_underway
+        if sampling_underway:
+            print('[!] Another sampling process is running!')
+            return
+        
+        toggle_post_actions(False)
+        sampling_underway = True
+        dpg.set_value("apufsampler_progress", 0.0)
+        dpg.configure_item("apufsampler_prog_value", default_value = "0%")
+        
+        threading.Thread(target = sample, daemon = True).start()
+    
+    def toggle_post_actions(state: bool):
+        dpg.configure_item("apufsampler_saver", enabled = state)
+        dpg.configure_item("apufsampler_analysis", enabled = state)
+    
+    def save_latest():
+        print('[!] Saving menu is not implemented yet')
+
     with dpg.window(label = "APUF Sampler", tag = WinType.APUF_SAMPLER.value,
                     width = 900, height = 400):
         dpg.add_text('Sampler options:')
@@ -163,8 +226,21 @@ def wininit_apufsampler():
         dpg.add_text('Sampler Seed (optional for random sampler):')
         dpg.add_input_text(tag = 'apufsampler_seed')
         dpg.add_spacer(height = 2)
-        dpg.add_button(label = 'Start Sampler')
+        dpg.add_button(label = 'Start Sampler', callback = start_sampling)
+        dpg.add_spacer(height = 8)
+        dpg.add_progress_bar(tag = "apufsampler_progress", default_value=0.0, width = -1)
+        dpg.add_text("0%", tag = "apufsampler_prog_value")
+
         dpg.add_spacer(height = 4)
+        with dpg.group(horizontal = True):
+            dpg.add_text("Post Sample Actions: ")
+            dpg.add_button(label = "Save Latest Result", tag = "apufsampler_saver",
+                           callback = lambda: save_latest)
+            dpg.add_button(label = "Analyze", tag = "apufsampler_analysis",
+                           callback = lambda: plot_entropies(latest_sampling_data))
+
+        toggle_post_actions(False)
+
 
 def wininit_keygen(hcm: HCMCommander):
     KEYTYPES = ['Primary', 'Secondary', 'Tertiary']

@@ -4,8 +4,8 @@ import hashlib
 def sim_temperature() -> float:
     return 50 + random.uniform(-2.5, 2.5)
 
-def sim_apuf_single(chall: int) -> bytes:
-    return hashlib.sha256(chall.to_bytes(4)).digest()[:4]
+def sim_apuf_single(chall: bytes) -> bytes:
+    return hashlib.sha256(chall).digest()[:4]
 
 def sim_apuf_batch(challenges: list[int]) -> list[int]:
     res = b''

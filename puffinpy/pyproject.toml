@@ -15,7 +15,8 @@ dev = [
     "pytest"
 ]
 gui = [
-    "dearpygui"
+    "dearpygui",
+    "numpy", "matplotlib"
 ]
 cli = [
 ]

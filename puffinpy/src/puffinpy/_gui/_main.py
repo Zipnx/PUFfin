@@ -26,6 +26,13 @@ class PuffinGUI:
         dpg.create_context()
         dpg.configure_app(docking = True, docking_space = True)
         
+        with dpg.theme() as disabled_button_theme:
+            with dpg.theme_component(dpg.mvButton, enabled_state=False):
+                dpg.add_theme_color(dpg.mvThemeCol_Button, (100, 100, 100))
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, (120, 120, 120))
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (80, 80, 80))
+                dpg.add_theme_color(dpg.mvThemeCol_Text, (180, 180, 180))
+
         self.setup_menubar() 
 
         # Will make the docking preset later, rn just doin quick dev
@@ -33,7 +40,7 @@ class PuffinGUI:
         self.setup_heartbeat()
 
         wininit_apufinteract(self.hcm)
-        wininit_apufsampler()
+        wininit_apufsampler(self.hcm)
         wininit_keygen(self.hcm)
         wininit_console()
         wininit_debugcon()
@@ -45,7 +52,8 @@ class PuffinGUI:
 
         with dpg.window(label = "", no_title_bar = True, tag = "win_logo", width = 200, height = 200):
             dpg.add_image(texture_id, width = 150, height = 150)
-
+            
+        dpg.bind_theme(disabled_button_theme)
         self.load_default_layout()
         dpg.create_viewport(title = "PuffinPy GUI")
         dpg.setup_dearpygui()

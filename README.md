@@ -58,6 +58,20 @@ or
 puffingui <SERIALPORT>
 ```
 
+## Note On Packaging Issues
+
+While developing, especially in the later stages we came a cross multiple problems
+with the vivado 2018.3 packager. In many cases the packaging does not result in the files
+in the iprepo directory to update.
+
+As a result, we cannot ensure that the IP core project will work as expected, you might need
+to wipe their respective iprepo entry and repackage, which might still not resolve the issue.
+
+Unfortunatelly this is the reason why the RO normalization and a quick ECC module based on Hamming
+codes, while implemented, is not used.
+
+In future work we plan to move to a later and more stable version of Vivado
+
 ## Resources Used
  1. tobiasrj20 
     - Saved us lots of time: https://github.com/tobiasrj20/Vivado-Version-Control-Example
