@@ -25,7 +25,8 @@ def compute_total_entropy(responses: list[int]) -> float:
 def plot_entropies(data: dict, bit_width: int = 32) -> None:
     responses = list(map(int, data.values()))
     bits = response_to_bits(responses, width = bit_width)
-    
+    counts = Counter(responses)
+
     entropies = compute_bitwise_entropy(bits)
     total_entropy = compute_total_entropy(responses)
 
@@ -38,6 +39,7 @@ def plot_entropies(data: dict, bit_width: int = 32) -> None:
     plt.grid(True, axis='y')
     plt.tight_layout()
 
-    plt.figtext(0.45, 0.005, f"Total Entropy: {total_entropy:.2f}")
+    plt.figtext(0.40, 0.005, f"Total Entropy: {total_entropy:.2f}")
+    plt.figtext(0.7, 0.005, f'Unique Responses: {len(counts)}/{len(data)}')
 
     plt.show()
