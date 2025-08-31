@@ -156,7 +156,7 @@ def wininit_apufsampler(hcm: HCMCommander):
             if resp < 0:
                 print('[!] Sampling encountered error')
                 sampling_underway = False
-                latest_sampling_data = {}
+                latest_sampling_data.clear()
                 return
             
             # TODO: Make it into a list, so that in the future,
@@ -180,6 +180,7 @@ def wininit_apufsampler(hcm: HCMCommander):
         
         toggle_post_actions(False)
         sampling_underway = True
+        latest_sampling_data.clear()
         dpg.set_value("apufsampler_progress", 0.0)
         dpg.configure_item("apufsampler_prog_value", default_value = "0%")
         
