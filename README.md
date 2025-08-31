@@ -10,6 +10,7 @@ Team: AOHW25_255
 |Python Version|3.12 (an earlier one can be used)|
 
 ## Made By (AOHW25_255)
+ - Supervisor: Prof. Mihalis Psarakis
  - Sofianos Lymouris 
  - Nikos Pilichos
  - Vasilis Giannoulis
