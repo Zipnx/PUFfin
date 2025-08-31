@@ -1,5 +1,5 @@
 
-import json
+import json, sys
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -25,7 +25,11 @@ def load_crps(path: str) -> dict:
     return data.get('crps', None)
 
 def main():
-    crps = load_crps('./cache/bff_01.bit.json')
+    if len(sys.argv) < 2:
+        print(f'Usage: {sys.argv[0]} <RESULT_FILE>')
+        sys.exit(-1)
+
+    crps = load_crps(sys.argv[1])
 
     if crps is None: return
 

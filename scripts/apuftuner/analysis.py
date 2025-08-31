@@ -24,9 +24,13 @@ def compute_total_entropy(responses: list[int]) -> float:
 
 if __name__ == '__main__':
     # Just doin this for checking against test.json
-    import json
+    import json, sys
+    
+    if len(sys.argv) < 2:
+        print(f'Usage: {sys.argv[0]} <RESULT_FILE>')
+        sys.exit(-1)
 
-    with open('./cache/aff_00.bit.json', 'r') as f:
+    with open(sys.argv[1], 'r') as f:
         data = json.load(f)
 
     crps = data['crps']
