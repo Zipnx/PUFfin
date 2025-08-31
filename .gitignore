@@ -11,8 +11,10 @@ webtalk/
 
 # excluding the vivado project directories, gotta build em via tcl
 components/sysauth/sysauth
+components/syskeygen/syskeygen
 components/rawapuf/rawapuf
 components/axi_sysauth/axi_sysauth
+components/axi_syskeygen/axi_syskeygen
 components/axi_rawapuf/axi_rawapuf
 components/axi_rawapuf_multi/axi_rawapuf_multi
 components/rocount/rocount
