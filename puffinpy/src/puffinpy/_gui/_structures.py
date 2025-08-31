@@ -9,4 +9,5 @@ class WinType(Enum):
     KEYGEN          = 'winkeygen'
     CONSOLE         = 'winconsole'
     DEBUGCON        = 'windebugcon'
+    AES             = 'winaes'
     

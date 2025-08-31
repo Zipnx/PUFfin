@@ -1,6 +1,6 @@
 
 import dearpygui.dearpygui as dpg
-from puffinpy._gui._windows import (wininit_stats, wininit_apufinteract, wininit_apufsampler, 
+from puffinpy._gui._windows import (wininit_aes, wininit_stats, wininit_apufinteract, wininit_apufsampler, 
                                     wininit_keygen, wininit_console,
                                     wininit_debugcon)
 
@@ -26,10 +26,7 @@ class PuffinGUI:
         dpg.create_context()
         dpg.configure_app(docking = True, docking_space = True)
         
-        self.setup_menubar()
-        
-        #width, height, chan, data = dpg.load_image(LOGO)
-
+        self.setup_menubar() 
 
         # Will make the docking preset later, rn just doin quick dev
         wininit_stats()
@@ -40,7 +37,15 @@ class PuffinGUI:
         wininit_keygen(self.hcm)
         wininit_console()
         wininit_debugcon()
-        
+        wininit_aes(self.hcm)
+         
+        with dpg.texture_registry():
+            width, height, _, data = dpg.load_image(str(LOGO))
+            texture_id = dpg.add_static_texture(width, height, data)
+
+        with dpg.window(label = "", no_title_bar = True, tag = "win_logo", width = 200, height = 200):
+            dpg.add_image(texture_id, width = 150, height = 150)
+
         self.load_default_layout()
         dpg.create_viewport(title = "PuffinPy GUI")
         dpg.setup_dearpygui()

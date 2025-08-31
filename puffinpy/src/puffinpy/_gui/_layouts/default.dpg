@@ -1,31 +1,31 @@
 [Window][WindowOverViewport_11111111]
 Pos=0,19
-Size=1272,740
+Size=1264,742
 Collapsed=0
 
 [Window][###27]
-Pos=0,601
-Size=254,158
+Pos=0,602
+Size=251,159
 Collapsed=0
 DockId=0x00000005,0
 
 [Window][###41]
-Pos=0,238
-Size=254,361
+Pos=0,375
+Size=251,225
 Collapsed=0
 DockId=0x00000007,0
 
 [Window][###47]
-Pos=256,19
-Size=1016,487
+Pos=253,19
+Size=1011,489
 Collapsed=0
 DockId=0x00000008,0
 
 [Window][###66]
-Pos=0,19
-Size=254,217
+Pos=0,182
+Size=251,191
 Collapsed=0
-DockId=0x00000006,0
+DockId=0x00000010,0
 
 [Window][###71]
 Pos=209,357
@@ -34,8 +34,8 @@ Collapsed=0
 DockId=0x00000001,0
 
 [Window][###74]
-Pos=256,508
-Size=1016,251
+Pos=253,510
+Size=994,251
 Collapsed=0
 DockId=0x00000001,0
 
@@ -45,19 +45,77 @@ Size=400,400
 Collapsed=0
 
 [Window][###77]
-Pos=256,508
-Size=1016,251
+Pos=253,510
+Size=1011,251
+Collapsed=0
+DockId=0x00000001,0
+
+[Window][###81]
+Pos=0,19
+Size=251,169
+Collapsed=0
+DockId=0x00000009,0
+
+[Window][###79]
+Pos=253,19
+Size=994,489
+Collapsed=0
+DockId=0x00000008,1
+
+[Window][###91]
+Pos=0,19
+Size=251,162
+Collapsed=0
+DockId=0x0000000B,0
+
+[Window][###90]
+Pos=0,19
+Size=251,166
+Collapsed=0
+DockId=0x0000000D,0
+
+[Window][###80]
+Pos=253,510
+Size=1011,251
 Collapsed=0
 DockId=0x00000001,1
 
+[Window][###82]
+Pos=253,19
+Size=1011,489
+Collapsed=0
+DockId=0x00000008,1
+
+[Window][###121]
+Pos=0,19
+Size=251,161
+Collapsed=0
+DockId=0x0000000F,0
+
+[Table][0xD9EB9D06,2]
+Column 0  Weight=0.9515
+Column 1  Weight=1.0485
+
+[Table][0x1277FF48,2]
+Column 0  Weight=0.9867
+Column 1  Weight=1.0133
+
 [Docking][Data]
-DockSpace       ID=0x7C6B3D9B Window=0xA87D555D Pos=0,19 Size=1272,740 Split=X
-  DockNode      ID=0x00000002 Parent=0x7C6B3D9B SizeRef=254,742 Split=Y Selected=0x26E8F608
-    DockNode    ID=0x00000004 Parent=0x00000002 SizeRef=207,461 Split=Y Selected=0x7FF1E0B5
-      DockNode  ID=0x00000006 Parent=0x00000004 SizeRef=207,172 Selected=0x80199DAE
-      DockNode  ID=0x00000007 Parent=0x00000004 SizeRef=207,287 Selected=0x7FF1E0B5
-    DockNode    ID=0x00000005 Parent=0x00000002 SizeRef=207,126 HiddenTabBar=1 Selected=0x26E8F608
-  DockNode      ID=0x00000003 Parent=0x7C6B3D9B SizeRef=1008,742 Split=Y
-    DockNode    ID=0x00000008 Parent=0x00000003 SizeRef=1055,489 CentralNode=1 Selected=0xF0B11515
-    DockNode    ID=0x00000001 Parent=0x00000003 SizeRef=1055,251 Selected=0x762567BB
+DockSpace               ID=0x7C6B3D9B Window=0xA87D555D Pos=0,19 Size=1264,742 Split=X
+  DockNode              ID=0x00000002 Parent=0x7C6B3D9B SizeRef=251,742 Split=Y Selected=0x26E8F608
+    DockNode            ID=0x00000004 Parent=0x00000002 SizeRef=207,461 Split=Y Selected=0x7FF1E0B5
+      DockNode          ID=0x00000006 Parent=0x00000004 SizeRef=207,354 Split=Y Selected=0x80199DAE
+        DockNode        ID=0x00000009 Parent=0x00000006 SizeRef=254,168 HiddenTabBar=1 Selected=0x083320CE
+        DockNode        ID=0x0000000A Parent=0x00000006 SizeRef=254,201 Split=Y Selected=0x80199DAE
+          DockNode      ID=0x0000000B Parent=0x0000000A SizeRef=251,162 HiddenTabBar=1 Selected=0xC36FF36B
+          DockNode      ID=0x0000000C Parent=0x0000000A SizeRef=251,183 Split=Y Selected=0x80199DAE
+            DockNode    ID=0x0000000D Parent=0x0000000C SizeRef=251,166 HiddenTabBar=1 Selected=0xFE0FDADB
+            DockNode    ID=0x0000000E Parent=0x0000000C SizeRef=251,171 Split=Y Selected=0x80199DAE
+              DockNode  ID=0x0000000F Parent=0x0000000E SizeRef=251,161 HiddenTabBar=1 Selected=0xF8004A44
+              DockNode  ID=0x00000010 Parent=0x0000000E SizeRef=251,191 Selected=0x80199DAE
+      DockNode          ID=0x00000007 Parent=0x00000004 SizeRef=207,225 Selected=0x7FF1E0B5
+    DockNode            ID=0x00000005 Parent=0x00000002 SizeRef=207,126 HiddenTabBar=1 Selected=0x26E8F608
+  DockNode              ID=0x00000003 Parent=0x7C6B3D9B SizeRef=1011,742 Split=Y
+    DockNode            ID=0x00000008 Parent=0x00000003 SizeRef=1055,489 CentralNode=1 Selected=0x4F935A1E
+    DockNode            ID=0x00000001 Parent=0x00000003 SizeRef=1055,251 Selected=0x3553097E
 
