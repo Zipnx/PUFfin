@@ -163,9 +163,10 @@ def wininit_apufsampler(hcm: HCMCommander):
             #       the rep tests can be stored
             latest_sampling_data[chall.hex()] = resp
             
-            dpg.set_value("apufsampler_progress", i/samples)
-            prog = (i / samples) * 100
-            dpg.configure_item("apufsampler_prog_value", default_value = f'{prog:.2f}%')
+            if i % 64 == 0:
+                dpg.set_value("apufsampler_progress", i/samples)
+                prog = (i / samples) * 100
+                dpg.configure_item("apufsampler_prog_value", default_value = f'{prog:.2f}%')
 
         print('[+] Sampling complete')
         toggle_post_actions(True)
