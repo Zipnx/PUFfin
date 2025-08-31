@@ -26,6 +26,7 @@ standalone/ps_apuftune/ps_apuftune
 standalone/ps_rocount/ps_rocount
 standalone/ps_aes/ps_aes
 standalone/ps_triple/ps_triple
+standalone/ps_keygen/ps_keygen
 
 # More SDK exclusions
 *.bit
