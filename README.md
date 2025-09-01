@@ -4,10 +4,19 @@
 Git repo for the AMD OpenHardware Competition 2025
 Team: AOHW25_255
 
+Our project is a hardware security platform that can be used by developers to utilize outputs
+from PUFs for cryptographic purposes. This repository includes:
+
+ - PUFfin IP Cores for 2 PUFs (Ring Oscillator & Arbiter PUF), including AXI wrappers
+ - Static Library for Xilinx SDK, which allows for easy use of the components
+ - The PuffinPy python module, that can be used to interact with devices using the static library in firmware
+ - PuffinPy also includes a CLI and a GUI application for easy testing
+ - Projects in the ./standalone/ directory, which implement specific components, with 1, ps_triple enabling all of them
+
 |Board|Zybo Z7-10|
 |-----|----------|
 |Vivado/SDK Version|2018.3|
-|Python Version|3.12 (an earlier one can be used)|
+|Python Version|3.12 (earlier is probably fine)|
 
 ## Made By (AOHW25_255)
  - Supervisor: Prof. Mihalis Psarakis
@@ -17,7 +26,7 @@ Team: AOHW25_255
 
 ## Executing the Demo:
 First download the .bit, .elf and .tcl files from the releases tab:
-[Demo Files](https://github.com/Zipnx/PUFfin/releases/tag/demo)
+[Demo Files For ps_triple](https://github.com/Zipnx/PUFfin/releases/tag/demo)
 
 Then run xsct and execute the following:
 
