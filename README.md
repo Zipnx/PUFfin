@@ -77,8 +77,8 @@ in the iprepo directory to update.
 As a result, we cannot ensure that the IP core project will work as expected, you might need
 to wipe their respective iprepo entry and repackage, which might still not resolve the issue.
 
-Unfortunatelly this is the reason why the RO normalization and a quick ECC module based on Hamming
-codes, while implemented, is not used.
+Unfortunatelly this is the reason why the ECC module based on Hamming
+codes, while implemented, is not directly used.
 
 In future work we plan to move to a later and more stable version of Vivado
 

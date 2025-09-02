@@ -4,7 +4,9 @@ import dearpygui.dearpygui as dpg
 
 from puffinpy._commander import HCMCommander
 from puffinpy._gui._structures import WinType
+from puffinpy._gui._console import info, error, good
 from puffinpy._apuf_analyze import plot_entropies
+
 
 def wininit_stats():
     with dpg.window(label = 'Device Statistics', tag = WinType.STATS.value, 
@@ -34,15 +36,19 @@ def wininit_apufinteract(hcm: HCMCommander):
 
     def apuf_callback(sender, app_data):
         challenge = dpg.get_value("apufinteract_chall")
-        
+        info(f'Executing apuf: {challenge}')
+
         try:
-            challenge = int(challenge)
+            if challenge[:2] == '0x':
+                challenge = int(challenge, 16)
+            else:
+                challenge = int(challenge)
         except ValueError:
-            print('Invalid challenge (make proper error display at the console)')
+            error('Invalid challenge')
             return
 
         if challenge.bit_length() > 32:
-            print('Invalid challenge bit length')
+            error('Invalid challenge bit length')
             return
 
         resp = hcm.apuf_single(challenge)
@@ -154,7 +160,7 @@ def wininit_apufsampler(hcm: HCMCommander):
             resp = hcm.apuf_single(chall)
             
             if resp < 0:
-                print('[!] Sampling encountered error')
+                error('Sampling encountered error, halted.')
                 sampling_underway = False
                 latest_sampling_data.clear()
                 return
@@ -168,16 +174,18 @@ def wininit_apufsampler(hcm: HCMCommander):
                 prog = (i / samples) * 100
                 dpg.configure_item("apufsampler_prog_value", default_value = f'{prog:.2f}%')
 
-        print('[+] Sampling complete')
+        good('Sampling complete')
         toggle_post_actions(True)
         sampling_underway = False
 
     def start_sampling():
         global sampling_underway
         if sampling_underway:
-            print('[!] Another sampling process is running!')
+            error('Another sampling process is running!')
             return
         
+        info('Started sampling of APUF...')
+
         toggle_post_actions(False)
         sampling_underway = True
         latest_sampling_data.clear()
@@ -191,7 +199,7 @@ def wininit_apufsampler(hcm: HCMCommander):
         dpg.configure_item("apufsampler_analysis", enabled = state)
     
     def save_latest():
-        print('[!] Saving menu is not implemented yet')
+        error('Saving menu is not implemented yet')
 
     with dpg.window(label = "APUF Sampler", tag = WinType.APUF_SAMPLER.value,
                     width = 900, height = 400):
