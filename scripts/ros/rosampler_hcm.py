@@ -23,6 +23,15 @@ def get_resp(hcm: HCMCommander, select: int) -> bytes | None:
 
     return resp
 
+# Checking for the 49 bits that we use right now, this is temporary
+def get_used_bits(resp: bytes) -> str:
+    lsb = int.from_bytes(resp[0:4], byteorder='big')
+    msb = int.from_bytes(resp[4:8], byteorder='big') & 0x1ffff
+
+    value = (msb << 32) | lsb
+
+    return f'{value:049b}'
+
 def benchmark(hcm: HCMCommander, samples: int = 1024):
     results = {
         0: [],
@@ -46,9 +55,9 @@ def benchmark(hcm: HCMCommander, samples: int = 1024):
             bar = ('#'*int(prog * PROGBAR_WIDTH)).ljust(PROGBAR_WIDTH)
             print(f'<{bar}> {perc:.2f}%', end = '\r', flush = True)
 
-        results[0].append(r0.hex())
-        results[1].append(r1.hex())
-        results[2].append(r2.hex())
+        results[0].append(get_used_bits(r0))
+        results[1].append(get_used_bits(r1))
+        results[2].append(get_used_bits(r2))
 
     print()
 
